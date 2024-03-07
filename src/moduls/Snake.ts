@@ -20,11 +20,9 @@ class Snake {
         return this.head.offsetTop;
     }
     set X(value:number) {
-        if(value <0 || value >290) throw new Error("GameOver!")
         if(this.X !=value) this.head.style.left = value + 'px';
     }
     set Y(value:number) {
-        if(value <0 || value >290) throw new Error("GameOver!");
         if(this.Y != value) this.head.style.top = value + 'px';
     }
     //吃到食物时body伸长一节
@@ -46,10 +44,18 @@ class Snake {
         for(let i=1;i<this.bodies.length;i++) {
             let bd = this.bodies[i] as HTMLElement;
             if(this.X == bd.offsetLeft && this.Y == bd.offsetTop) {
-                throw new Error("咬到自己了");
+                return true;
             }
         }
+        return false;
         
+    }
+    //撞墙检测
+    checkHeadWallCollision() {
+        if((this.X<0 || this.X>290) || (this.Y<0 || this.Y>290)) {
+            return true;
+        }
+        return false;
     }
 }   
 
